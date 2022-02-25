@@ -1,42 +1,24 @@
-import * as MyFn from './myfile.js';
-
-require('dotenv').config();
+var lolapi = require('./lolapi.js');
 var http = require('http');
-var fs = require('fs');
-var lol = require('lol-js');
 
-var lolClient = lol.client({apiKey: process.env.API_KEY});
-var mode = 1;
-var championList = lol.getChampions('euw');
+var mode = 'custom'; //Select mode [champion in game, custom champion]
 
 var server = http.createServer(function (req, res) {
+    var championId, championMasteryData;
+
     if (req.url == '/') {
-        res.writeHead(200, { 'Content-Type': 'text/html' }); 
-        
-        //Elegir modo, campeon [0 campeón en partida,1 campeón personalizado]
         switch(mode) {
-            case 0:
-                var championId = championList.find('Annie').id;
-                var championMastery =  lol.getSummonerMasteries('euw', [process.env.SUMMONER_ID, ]);
+            case 'in game':
+
             break;
 
-            case 1:
-                var championId = championList.find('Annie').id;
-                var championMastery =  lol.getSummonerMasteries('euw', [process.env.SUMMONER_ID, ]);
+            case 'custom':
+                championId = lolapi.getChampionIdByName('Annie');
+                championMasteryData = lolapi.getChampionMasteryData(championId, 'manuFM');
         }
 
-        //Datos de maestria del campeon
-        var masteryLevel;
-
-        //Imagen del campeón
-        var championLogoURL;
-
-        //Icono de maestria
-        var masteryLogoURL;
-
-        //Enviar datos a html
-        res.write(championMastery);
-        res.end();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(championMasteryData));
     } else res.end('Invalid Request!');
 });
 

@@ -1,0 +1,28 @@
+{
+  "name": "champion-mastery-display-for-obs",
+  "version": "1.0.0",
+  "description": "Creates a server that displays champion mastery information for streaming League of Legends with OBS.",
+  "main": "functions.js",
+  "dependencies": {
+    "@fightmegg/riot-api": "0.0.8",
+    "axios": "^0.26.0",
+    "dotenv": "^16.0.0",
+    "lol-js": "^2.0.2",
+    "riot-lol-api": "^4.3.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitatmanu/Champion-Mastery-Display-for-OBS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gitatmanu/Champion-Mastery-Display-for-OBS/issues"
+  },
+  "homepage": "https://github.com/gitatmanu/Champion-Mastery-Display-for-OBS#readme"
+}
