@@ -9,16 +9,15 @@ var server = http.createServer(function (req, res) {
     if (req.url == '/') {
         switch(mode) {
             case 'in game':
-
-            break;
-
+                championId = 0; //Get current game stats if there are, if not, take champ from the last game played
+                break;
             case 'custom':
                 championId = lolapi.getChampionIdByName('Annie');
-                championMasteryData = lolapi.getChampionMasteryData(championId, 'manuFM');
         }
+        championMasteryData = lolapi.getChampionMasteryData(championId, 'manufm');
 
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify(championMasteryData));
+        res.end(JSON.stringify());
     } else res.end('Invalid Request!');
 });
 
