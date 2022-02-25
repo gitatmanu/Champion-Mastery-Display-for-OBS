@@ -15,9 +15,10 @@ var server = http.createServer(function (req, res) {
                 championId = lolapi.getChampionIdByName('Annie');
         }
         championMasteryData = lolapi.getChampionMasteryData(championId, 'manufm');
+        console.log(championMasteryData);
 
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify());
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end(JSON.stringify(championMasteryData));
     } else res.end('Invalid Request!');
 });
 
