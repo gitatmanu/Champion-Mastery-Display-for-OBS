@@ -1,13 +1,15 @@
 const axios = require('axios');
+const fs = require('fs');
 require('dotenv').config();
 
 var championList;
 
-axios.get(`http://ddragon.leagueoflegends.com/cdn/12.4.1/data/en_US/champion.json`, {responseType: 'json'})
+axios.get(`http://ddragon.leagueoflegends.com/cdn/12.4.1/data/es_ES/champion.json`, {responseType: 'json'})
 .then(res => {championList = res.data.data}).catch(e => {console.error(e)});
 
+function getChampionList() {return championList}
 
-function getChampionIdByName(name) {
+function getChampionKeyById(name) {
     return championList[name]['key'];
 }
 
@@ -30,4 +32,8 @@ async function getChampionMasteryData(championId, summonerName) {
 }
 
 
-module.exports = {getChampionIdByName, getChampionMasteryData, getSummonerIdByName};
+function getMasteryProgressionAsset(masteryLevel) {
+    return fs.readFileSync(`media/mastery_assets/cdp-prog-mastery-${masteryLevel}.png`);
+}
+
+module.exports = {getChampionKeyById, getChampionMasteryData, getSummonerIdByName, getMasteryProgressionAsset, getChampionList};
