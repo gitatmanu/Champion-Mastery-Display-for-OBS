@@ -4,7 +4,7 @@ var http = require('http');
 var mode = 'custom'; //Select mode [champion in game, custom champion]
 
 var server = http.createServer(function (req, res) {
-    var championId, championMasteryData;
+    var championId;
 
     if (req.url == '/') {
         switch(mode) {
@@ -14,7 +14,8 @@ var server = http.createServer(function (req, res) {
             case 'custom':
                 championId = lolapi.getChampionIdByName('Annie');
         }
-        championMasteryData = lolapi.getChampionMasteryData(championId, 'manufm');
+        const championMasteryData = lolapi.getChampionMasteryData(championId, 'manufm').then( res => console.log(res.data) );
+
         console.log(championMasteryData);
 
         res.writeHead(200, { 'Content-Type': 'text/html' });

@@ -2,6 +2,7 @@ const axios = require('axios');
 require('dotenv').config();
 
 var championList;
+
 axios.get(`http://ddragon.leagueoflegends.com/cdn/12.4.1/data/en_US/champion.json`, {responseType: 'json'})
 .then(res => {championList = res.data.data}).catch(e => {console.error(e)});
 
@@ -18,16 +19,16 @@ function getSummonerIdByName(name) {
     return id;
 };
 
-function getChampionMasteryData(championId, summonerName) {  
-    var championMasteryData;
-    var summonerId = process.env.SUMMONER_ID;
+async function getChampionMasteryData(championId, summonerName) {  
+    try {
+        var summonerId = process.env.SUMMONER_ID;
+        
+        let championMasteryData = await axios(`https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summonerId}/by-champion/${championId}?api_key=${process.env.API_KEY}`, {responseType: 'json'});
 
-    axios.get(`https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summonerId}/by-champion/${championId}?api_key=${process.env.API_KEY}`, {responseType: 'json'})
-        .then(result => {console.log(result.data); championMasteryData = result})
-        .catch(e => console.log(e));
-
-    return championMasteryData;
-    
+        return championMasteryData;
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 
