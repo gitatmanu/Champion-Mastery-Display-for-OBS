@@ -8,6 +8,7 @@
     "axios": "^0.26.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "js-circle-progress": "^0.2.2",
     "lol-js": "^2.0.2",
     "pug": "^3.0.2",
     "riot-lol-api": "^4.3.4"
