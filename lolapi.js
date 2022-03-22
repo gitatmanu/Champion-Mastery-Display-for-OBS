@@ -20,11 +20,9 @@ async function getSummonerIdByName(name) {
     }
 };
 
-async function getChampionMasteryData(championId, summonerName) {  
+async function getChampionMasteryData(championId) {  
     try {
-        var summonerId = await getSummonerIdByName(summonerName).then(res => res.data.id);
-        
-        return await axios(`https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summonerId}/by-champion/${championId}?api_key=${process.env.API_KEY}`, {responseType: 'json'});
+        return await axios(`https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${process.env.SUMMONER_ID}/by-champion/${championId}?api_key=${process.env.API_KEY}`, {responseType: 'json'});
     } catch (e) {
         console.log(e);
     }
